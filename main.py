@@ -1,9 +1,9 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import uvicorn
-from utils.json_handler import JsonHandler
+from utils.load_to_file import *
 
-USERS_PATH = "data/names.txt"
+NAMES_PATH = "data/names.txt"
 
 app = FastAPI()
 
@@ -12,13 +12,11 @@ def test():
     return {"msg":"hi from test"}
 
 
-@app.get("/test/{name}")
+@app.get("/test/")
 def add_name(name:str):
-    names_list = JsonHandler.load_data(USERS_PATH)
-    print("hello")
-    name = {len(names_list)+ 1:name}
+    names_list = load_data(NAMES_PATH)
     names_list.append(name)
-    JsonHandler.save_data(names_list, USERS_PATH)
+    save_data(names_list, NAMES_PATH)
     return {"msg": "saved user"}
 
 
