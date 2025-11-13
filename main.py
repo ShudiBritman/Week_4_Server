@@ -35,11 +35,11 @@ def caesar_encrypt(body:Caesar):
     offeset = body.offeset
     letter_range = 122 - offeset
     for i in range(len(text)):
-        if ord(text[i]) <= letter_range:
+        if ord(text[i]) < letter_range:
             asc_letter = ord(text[i]) + body.offeset
             encrypt_test += chr(asc_letter)
         else:
-            asc_letter = ord(i) % letter_range + 96
+            asc_letter = ord(text[i]) % letter_range + 96
             encrypt_test += chr(asc_letter)
     return {body.mode: encrypt_test}
 
